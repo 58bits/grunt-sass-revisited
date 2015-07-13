@@ -93,4 +93,4 @@ The default value for the `precision` option is `10`, so you don't have to chang
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com), portions © [Anthony Bouch](http://www.58bits.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com), portions © [Anthony Bouch](http://www.58bits.com) as well as other contributors.
