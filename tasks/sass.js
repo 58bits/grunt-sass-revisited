@@ -1,8 +1,8 @@
 'use strict';
-var path = require('path');
+var path 			= require('path');
 var eachAsync = require('each-async');
-var assign = require('object-assign');
-var sass = require('node-sass');
+var assign 		= require('object-assign');
+var sass 			= require('node-sass');
 
 module.exports = function (grunt) {
 
@@ -10,45 +10,45 @@ module.exports = function (grunt) {
 
 	grunt.registerMultiTask('sass', 'Compile Sass to CSS', function () {
 
-    var done = this.async();
-    var counter = 0;
+		var done = this.async();
+		var counter = 0;
 
-    eachAsync(this.files, function (el, i, next) {
-			var opts = this.options({
-				precision: 10
-			});
+		eachAsync(this.files, function (el, i, next) {
+					var opts = this.options({
+						precision: 10
+					});
 
-			var src = el.src[0];
+					var src = el.src[0];
 
-			if (!src || path.basename(src)[0] === '_') {
-				next();
-				return;
-			}
+					if (!src || path.basename(src)[0] === '_') {
+						next();
+						return;
+					}
 
-			sass.render(assign({}, opts, {
-				file: src,
-				outFile: el.dest
-			}), function (err, res) {
-				if (err) {
-					grunt.log.error(err.message + '\n  ' + 'Line ' + err.line + '  Column ' + err.column + '  ' + path.relative(process.cwd(), err.file) + '\n');
-					grunt.warn('');
-					next(err);
-					return;
+					sass.render(assign({}, opts, {
+						file: src,
+						outFile: el.dest
+					}), function (err, res) {
+						if (err) {
+							grunt.log.error(err.message + '\n  ' + 'Line ' + err.line + '  Column ' + err.column + '  ' + path.relative(process.cwd(), err.file) + '\n');
+							grunt.warn('');
+							next(err);
+							return;
+						}
+
+						grunt.file.write(el.dest, res.css);
+						counter++;
+
+						if (opts.sourceMap) {
+							grunt.file.write(this.options.sourceMap, res.map);
+						}
+
+						next();
+					});
+				}.bind(this), function(err) {
+					grunt.log.writeln(counter === 1 ? counter + ' stylesheet processed.' : counter + ' stylesheets processed.');
+					done(err);
 				}
-
-				grunt.file.write(el.dest, res.css);
-        counter++;
-
-				if (opts.sourceMap) {
-					grunt.file.write(this.options.sourceMap, res.map);
-				}
-
-				next();
-			});
-		}.bind(this), function(err) {
-          grunt.log.writeln(counter === 1 ? counter + ' stylesheet processed.' : counter + ' stylesheets processed.');
-          done(err);
-        }
-      );
+		);
 	});
 };

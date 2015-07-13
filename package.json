@@ -1,13 +1,13 @@
 {
-  "name": "grunt-sass",
+  "name": "grunt-sass-revisited",
   "version": "1.0.0",
   "description": "Compile Sass to CSS using node-sass",
   "license": "MIT",
-  "repository": "sindresorhus/grunt-sass",
+  "repository": "58bits/grunt-sass-revisited",
   "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "http://sindresorhus.com"
+    "name": "Anthony Bouch",
+    "email": "tony@58bits.com",
+    "url": "http://www.58bits.com"
   },
   "engines": {
     "node": ">=0.10.0"
