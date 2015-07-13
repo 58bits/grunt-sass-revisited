@@ -9,7 +9,7 @@ NOTE: This is a fork of [https://github.com/sindresorhus/grunt-sass](https://git
 This version is being used in project where more detailed output from the task (total number of stylesheets processed) is helpful. I'll monitor and maintain parity with the original repo.
 
 ## Original README 
-(with additional task configuration example)
+(with updated install instructions, and additional task configuration example)
 
 > Compile Sass to CSS using [node-sass](https://github.com/sass/node-sass)
 
