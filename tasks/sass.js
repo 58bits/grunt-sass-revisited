@@ -46,7 +46,7 @@ module.exports = function (grunt) {
             next();
           });
         }.bind(this), function (err) {
-          grunt.log.writeln(counter === 1 ? counter + ' stylesheet processed.' : counter + ' stylesheets processed.');
+          grunt.log.ok(counter + ' ' + grunt.util.pluralize(counter, 'stylesheet/stylesheets') + ' processed.');
           done(err);
         }
     );
