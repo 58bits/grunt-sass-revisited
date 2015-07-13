@@ -6,6 +6,8 @@ NOTE: This is a fork of [https://github.com/sindresorhus/grunt-sass](https://git
 [https://github.com/sindresorhus/grunt-sass/pull/228](https://github.com/sindresorhus/grunt-sass/pull/228)
 [https://github.com/sindresorhus/grunt-sass/issues/227](https://github.com/sindresorhus/grunt-sass/issues/227)
 
+This version is being used in project where more detailed output from the task (total number of stylesheets processed) is helpful. I'll monitor and maintain parity with the original repo.
+
 ## Original README 
 (with additional task configuration example)
 
@@ -26,8 +28,6 @@ $ npm install --save-dev grunt-sass-revisited
 ## Usage
 
 ```js
-require('load-grunt-tasks')(grunt); // npm install --save-dev load-grunt-tasks
-
 grunt.initConfig({
 	sass: {
 		options: {
@@ -45,34 +45,36 @@ grunt.initConfig({
 Or...
 
 ```js
-sass: {
-	dev: {
-		options: {
-			outputStyle: 'expanded',
-			sourceMap: true
+grunt.initConfig({
+	sass: {
+		dev: {
+			options: {
+				outputStyle: 'expanded',
+				sourceMap: true
+			},
+			files: [{
+				expand: true,
+				cwd: 'assets/scss',
+				src: ['*.scss'],
+				dest: 'public/css/',
+				ext: '.css'
+			}]
 		},
-		files: [{
-			expand: true,
-			cwd: 'assets/scss',
-			src: ['*.scss'],
-			dest: 'public/css/',
-			ext: '.css'
-		}]
-	},
-	dist: {
-		options: {
-			outputStyle: 'compressed',
-			sourceMap: false
-		},
-		files: [{
-			expand: true,
-			cwd: 'assets/scss',
-			src: ['*.scss'],
-			dest: 'public/css/',
-			ext: '.css'
-		}]
+		dist: {
+			options: {
+				outputStyle: 'compressed',
+				sourceMap: false
+			},
+			files: [{
+				expand: true,
+				cwd: 'assets/scss',
+				src: ['*.scss'],
+				dest: 'public/css/',
+				ext: '.css'
+			}]
+		}
 	}
-},
+});
 ```
 
 ```
