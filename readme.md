@@ -1,6 +1,13 @@
-# grunt-sass [![Build Status](https://travis-ci.org/sindresorhus/grunt-sass.svg?branch=master)](https://travis-ci.org/sindresorhus/grunt-sass)
+# grunt-sass-revisited [![Build Status](https://travis-ci.org/58bits/grunt-sass-revisited.svg?branch=master)](https://travis-ci.org/58bits/grunt-sass-revisited)
 
 [<img src="https://rawgit.com/sass/node-sass/master/media/logo.svg" width="200" align="right">](https://github.com/sass/node-sass)
+
+NOTE: This is a fork of [https://github.com/sindresorhus/grunt-sass](https://github.com/sindresorhus/grunt-sass), with the addition of an issue (with more detailed task configuration example) and a pull request (for output of total files processed at the end of the task) that were rejected by the current maintainer.
+[https://github.com/sindresorhus/grunt-sass/pull/228](https://github.com/sindresorhus/grunt-sass/pull/228)
+[https://github.com/sindresorhus/grunt-sass/issues/227](https://github.com/sindresorhus/grunt-sass/issues/227)
+
+## Original README 
+(with additional task configuration example)
 
 > Compile Sass to CSS using [node-sass](https://github.com/sass/node-sass)
 
@@ -12,7 +19,7 @@ This task uses [libsass](http://libsass.org) which is a Sass compiler in C++. In
 ## Install
 
 ```
-$ npm install --save-dev grunt-sass
+$ npm install --save-dev grunt-sass-revisited
 ```
 
 
@@ -33,7 +40,42 @@ grunt.initConfig({
 		}
 	}
 });
+```
 
+Or...
+
+```js
+sass: {
+	dev: {
+		options: {
+			outputStyle: 'expanded',
+			sourceMap: true
+		},
+		files: [{
+			expand: true,
+			cwd: 'assets/scss',
+			src: ['*.scss'],
+			dest: 'public/css/',
+			ext: '.css'
+		}]
+	},
+	dist: {
+		options: {
+			outputStyle: 'compressed',
+			sourceMap: false
+		},
+		files: [{
+			expand: true,
+			cwd: 'assets/scss',
+			src: ['*.scss'],
+			dest: 'public/css/',
+			ext: '.css'
+		}]
+	}
+},
+```
+
+```
 grunt.registerTask('default', ['sass']);
 ```
 
@@ -49,4 +91,4 @@ The default value for the `precision` option is `10`, so you don't have to chang
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com), portions © Anthony Bouch [Anthony Bouch](http://www.58bits.com)
