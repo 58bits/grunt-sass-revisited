@@ -9,6 +9,10 @@ module.exports = function (grunt) {
 	grunt.verbose.writeln('\n' + sass.info + '\n');
 
 	grunt.registerMultiTask('sass', 'Compile Sass to CSS', function () {
+
+		var done = this.async();
+		var counter = 0;
+
 		eachAsync(this.files, function (el, i, next) {
 			var opts = this.options({
 				precision: 10
@@ -33,6 +37,7 @@ module.exports = function (grunt) {
 				}
 
 				grunt.file.write(el.dest, res.css);
+				counter++;
 
 				if (opts.sourceMap) {
 					grunt.file.write(this.options.sourceMap, res.map);
@@ -40,6 +45,10 @@ module.exports = function (grunt) {
 
 				next();
 			});
-		}.bind(this), this.async());
+			}.bind(this), function (err) {
+				grunt.log.ok(counter + ' ' + grunt.util.pluralize(counter, 'stylesheet/stylesheets') + ' processed.');
+				done(err);
+			}
+		);
 	});
 };
