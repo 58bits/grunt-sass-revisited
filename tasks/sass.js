@@ -5,50 +5,40 @@ var assign = require('object-assign');
 var sass = require('node-sass');
 
 module.exports = function (grunt) {
-
   grunt.verbose.writeln('\n' + sass.info + '\n');
 
   grunt.registerMultiTask('sass', 'Compile Sass to CSS', function () {
-
-    var done = this.async();
-    var counter = 0;
-
     eachAsync(this.files, function (el, i, next) {
-          var opts = this.options({
-            precision: 10
-          });
+      var opts = this.options({
+        precision: 10
+      });
 
-          var src = el.src[0];
+      var src = el.src[0];
 
-          if (!src || path.basename(src)[0] === '_') {
-            next();
-            return;
-          }
+      if (!src || path.basename(src)[0] === '_') {
+        next();
+        return;
+      }
 
-          sass.render(assign({}, opts, {
-            file: src,
-            outFile: el.dest
-          }), function (err, res) {
-            if (err) {
-              grunt.log.error(err.message + '\n  ' + 'Line ' + err.line + '  Column ' + err.column + '  ' + path.relative(process.cwd(), err.file) + '\n');
-              grunt.warn('');
-              next(err);
-              return;
-            }
-
-            grunt.file.write(el.dest, res.css);
-            counter++;
-
-            if (opts.sourceMap) {
-              grunt.file.write(this.options.sourceMap, res.map);
-            }
-
-            next();
-          });
-        }.bind(this), function (err) {
-          grunt.log.ok(counter + ' ' + grunt.util.pluralize(counter, 'stylesheet/stylesheets') + ' processed.');
-          done(err);
+      sass.render(assign({}, opts, {
+        file: src,
+        outFile: el.dest
+      }), function (err, res) {
+        if (err) {
+          grunt.log.error(err.formatted + '\n');
+          grunt.warn('');
+          next(err);
+          return;
         }
-    );
+
+        grunt.file.write(el.dest, res.css);
+
+        if (opts.sourceMap) {
+          grunt.file.write(this.options.sourceMap, res.map);
+        }
+
+        next();
+      });
+    }.bind(this), this.async());
   });
 };
